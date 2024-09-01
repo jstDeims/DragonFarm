@@ -9,7 +9,7 @@ public class PatrolState : State
 
     private bool isWaiting = false;
 
-    private int currentWaypoint = 0;
+    public int currentWaypoint = 0;
     public override void Enter()
     {
         //Inicio animacion caminar
@@ -20,13 +20,9 @@ public class PatrolState : State
     }
     public override void FixedDo()
     {
-        Vector2 nextWaypointPosition = new Vector2(waypoints[currentWaypoint].position.x, waypoints[currentWaypoint].position.y);
-        Vector2 direction = nextWaypointPosition - body.position;
-        print(direction);
-        if (direction.magnitude < 0.3f)
+        if (body.gameObject.transform.position != waypoints[currentWaypoint].position)
         {
-            direction.Normalize();
-            body.MovePosition(body.position + (direction * input.movementSpeed * Time.fixedDeltaTime));
+            body.gameObject.transform.position = Vector2.MoveTowards(body.gameObject.transform.position, waypoints[currentWaypoint].position, input.movementSpeed.magnitude * Time.fixedDeltaTime);
         }
         else if (!isWaiting)
         {
@@ -41,6 +37,7 @@ public class PatrolState : State
     }
     IEnumerator IdleTime()
     {
+        print("Inicio espera");
         yield return new WaitForSecondsRealtime(waitTime);
         //Inicio animacion reposo
         currentWaypoint++;
@@ -48,6 +45,7 @@ public class PatrolState : State
         {
             currentWaypoint = 0;
         }
+        print("FIn espera");
         isWaiting = false;
         Enter();
     }

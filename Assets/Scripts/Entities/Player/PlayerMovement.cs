@@ -40,7 +40,7 @@ public class PlayerMovement : BaseMovementEntitiesController
     {
         if (attaking)
         {
-            state = attackState;
+            return;
         }
         else if (inputVector.magnitude > 0.0f)
         {
@@ -56,15 +56,16 @@ public class PlayerMovement : BaseMovementEntitiesController
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
+            print("A");
             attaking = true;
-            print("inicio ataque");
+            state = attackState;
             StartCoroutine("AttackTime");
         }
     }
     IEnumerator AttackTime()
     {
+        state.Enter();
         yield return new WaitForSecondsRealtime(attackTime);
         attaking = false;
-        print("fin ataque");
     }
 }

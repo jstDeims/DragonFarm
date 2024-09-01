@@ -19,9 +19,7 @@ public class FollowState : State
         var playerDirection = new Vector2(playerPosition.position.x, playerPosition.position.y);
         if (body.position != playerDirection)
         {
-            var direction = playerDirection - body.position;
-            direction.Normalize();
-            body.MovePosition(body.position + (direction * input.movementSpeed * Time.fixedDeltaTime));
+                body.gameObject.transform.position = Vector2.MoveTowards(body.gameObject.transform.position, playerPosition.position, input.movementSpeed.magnitude * Time.fixedDeltaTime);
         }
     }
     public override void Exit()

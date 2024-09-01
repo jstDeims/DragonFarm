@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyMovementController : BaseMovementEntitiesController
 {
+    [Header("controladores")]
+    public HealthController healthController;
     [Header("Estados")]
     [SerializeField] private PatrolState patrolState;
     [SerializeField] private FollowState followState;
@@ -15,7 +17,8 @@ public class EnemyMovementController : BaseMovementEntitiesController
 
     private Rigidbody2D body;
     private Animator animator;
-
+    private bool oncePlayerTrigger = false;
+    private bool attaking = false;
     void Start()
     {
         //Componentes
@@ -42,20 +45,31 @@ public class EnemyMovementController : BaseMovementEntitiesController
     {
         Vector3 distanceToPlayer = player_position.position - transform.position;
         float distance = distanceToPlayer.magnitude;
-        if (distance <= distanceToAttack)
+        if (distance <= distanceToAttack && !attaking)
         {
             state = attackState;
             StartCoroutine("AttackTime");
+            attaking = true;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        state = followState;
+        if (oncePlayerTrigger)
+        {
+            return;
+        }
+        if (collision.gameObject.tag == "Player")
+        {
+            state = followState;
+            oncePlayerTrigger = true;
+        }
     }
     IEnumerator AttackTime()
     {
+        state.Enter();
         yield return new WaitForSecondsRealtime(attackTime);
         state = followState;
+        attaking = false;
     }
 }

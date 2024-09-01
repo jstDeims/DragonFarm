@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private HealthController healthController;
+    public HealthController healthController;
     [SerializeField] private InteractionsController interactionsController;
 
    [HideInInspector] public bool canInteract = false;

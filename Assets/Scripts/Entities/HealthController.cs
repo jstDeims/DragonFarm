@@ -20,10 +20,11 @@ public class HealthController : MonoBehaviour
         if (actLife < 0) 
         {
             actLife = 0;
+            print("Muerto");
             death = true;
             return;
         }
-
+        print(actLife);
     }
     public void Heal(int healAmount)
     {
