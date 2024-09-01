@@ -11,6 +11,7 @@ public class AttackState : State
 
     public override void Enter()
     {
+        animator.Play("Attack");
         GameObject lastGameObject = this.gameObject;
         Collider2D[] objects = Physics2D.OverlapCircleAll(body.position, attackRatio);
         foreach (Collider2D obj in objects)

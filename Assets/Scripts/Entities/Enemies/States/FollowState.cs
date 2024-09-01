@@ -8,7 +8,7 @@ public class FollowState : State
 
     public override void Enter()
     {
-        //Inicio animacion caminar
+        animator.Play("Walk");
     }
     public override void Do()
     {
@@ -16,10 +16,16 @@ public class FollowState : State
     }
     public override void FixedDo()
     {
-        var playerDirection = new Vector2(playerPosition.position.x, playerPosition.position.y);
-        if (body.position != playerDirection)
+        Vector2 playerDirection = new Vector2(playerPosition.position.x, playerPosition.position.y);
+        SpriteRenderer mainSpriteRenderer = body.gameObject.GetComponent<BaseMovementEntitiesController>().spriteRenderer;
+        body.gameObject.transform.position = Vector2.MoveTowards(body.gameObject.transform.position, playerPosition.position, input.movementSpeed.magnitude * Time.fixedDeltaTime);
+        if (playerDirection.x - body.gameObject.transform.position.x > 0)
         {
-                body.gameObject.transform.position = Vector2.MoveTowards(body.gameObject.transform.position, playerPosition.position, input.movementSpeed.magnitude * Time.fixedDeltaTime);
+            mainSpriteRenderer.flipX = false;
+        }
+        else
+        {
+            mainSpriteRenderer.flipX = true;
         }
     }
     public override void Exit()

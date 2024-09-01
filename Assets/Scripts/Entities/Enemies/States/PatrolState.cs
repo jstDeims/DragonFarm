@@ -12,7 +12,7 @@ public class PatrolState : State
     public int currentWaypoint = 0;
     public override void Enter()
     {
-        //Inicio animacion caminar
+        animator.Play("Walk");
     }
     public override void Do()
     {
@@ -22,13 +22,24 @@ public class PatrolState : State
     {
         if (body.gameObject.transform.position != waypoints[currentWaypoint].position)
         {
+            Vector2 waypointDirection = new Vector2(waypoints[currentWaypoint].position.x, waypoints[currentWaypoint].position.y);
+            SpriteRenderer mainSpriteRenderer = body.gameObject.GetComponent<BaseMovementEntitiesController>().spriteRenderer;
             body.gameObject.transform.position = Vector2.MoveTowards(body.gameObject.transform.position, waypoints[currentWaypoint].position, input.movementSpeed.magnitude * Time.fixedDeltaTime);
+            if (waypointDirection.x - body.gameObject.transform.position.x > 0) 
+            {
+                mainSpriteRenderer.flipX = false;
+            }
+            else
+            {
+                mainSpriteRenderer.flipX = true;
+            }
         }
         else if (!isWaiting)
         {
             isWaiting = true;
             StartCoroutine("IdleTime");
         }
+
     }
     public override void Exit()
     {
@@ -37,15 +48,13 @@ public class PatrolState : State
     }
     IEnumerator IdleTime()
     {
-        print("Inicio espera");
+        animator.Play("Idle");
         yield return new WaitForSecondsRealtime(waitTime);
-        //Inicio animacion reposo
         currentWaypoint++;
         if (currentWaypoint == waypoints.Length)
         {
             currentWaypoint = 0;
         }
-        print("FIn espera");
         isWaiting = false;
         Enter();
     }

@@ -24,6 +24,7 @@ public class EnemyMovementController : BaseMovementEntitiesController
         //Componentes
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         //Asignacion componentes estados
         patrolState.Setup(body, animator, this);
         followState.Setup(body, animator, this);

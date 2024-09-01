@@ -6,8 +6,7 @@ public class WalkState : State
 {
     public override void Enter()
     {
-
-        isComplete = true;
+        animator.Play("Walk");
     }
     public override void Do()
     {

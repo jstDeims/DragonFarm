@@ -14,7 +14,6 @@ public class PlayerMovement : BaseMovementEntitiesController
     [SerializeField] private Animator animator;
 
     private bool attaking = false;
-
     void Start()
     {
         //Asignacion componentes estados
@@ -44,6 +43,16 @@ public class PlayerMovement : BaseMovementEntitiesController
         }
         else if (inputVector.magnitude > 0.0f)
         {
+            if (inputVector.x > 0) 
+            {
+                spriteRenderer.flipX = false;
+                attackState.transform.position = body.gameObject.transform.position + new Vector3(2,0,0);
+            }
+            else
+            {
+                spriteRenderer.flipX = true;
+                attackState.transform.position = body.gameObject.transform.position + new Vector3(-2, 0, 0);
+            }
             state = walkState;
         }
         else 
@@ -56,7 +65,6 @@ public class PlayerMovement : BaseMovementEntitiesController
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            print("A");
             attaking = true;
             state = attackState;
             StartCoroutine("AttackTime");
@@ -67,5 +75,7 @@ public class PlayerMovement : BaseMovementEntitiesController
         state.Enter();
         yield return new WaitForSecondsRealtime(attackTime);
         attaking = false;
+        state = idleState;
+        state.Enter();
     }
 }
