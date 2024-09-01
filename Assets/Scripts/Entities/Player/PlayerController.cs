@@ -9,11 +9,4 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     public HealthController healthController;
 
-   [HideInInspector] public bool canInteract = false;
-    private void Update()
-    {
-        if (canInteract && Input.GetKeyDown(KeyCode.E)) {
-
-        }
-    }
 }
