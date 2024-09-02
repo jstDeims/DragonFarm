@@ -540,6 +540,7 @@ MonoBehaviour:
   images:
   - {fileID: 1319153405, guid: 8f2977657b3be5a4d98258611c99806f, type: 3}
   - {fileID: 669071299, guid: 150fc7f18b984f54fa09c8b36a82dd49, type: 3}
+  detectedSound: {fileID: 8300000, guid: 3cf2f8c0f7d500b43b567c04c929bb19, type: 3}
 --- !u!212 &243477644
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2336,6 +2337,7 @@ MonoBehaviour:
   images:
   - {fileID: -1884387422, guid: 2d3399f748c464a4981e24998b8f3d31, type: 3}
   - {fileID: 863530354, guid: 2d3399f748c464a4981e24998b8f3d31, type: 3}
+  detectedSound: {fileID: 8300000, guid: 3cf2f8c0f7d500b43b567c04c929bb19, type: 3}
 --- !u!212 &898681815
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3298,6 +3300,7 @@ MonoBehaviour:
   images:
   - {fileID: -1786495654, guid: 8f2977657b3be5a4d98258611c99806f, type: 3}
   - {fileID: 474754494, guid: 150fc7f18b984f54fa09c8b36a82dd49, type: 3}
+  detectedSound: {fileID: 8300000, guid: 3cf2f8c0f7d500b43b567c04c929bb19, type: 3}
 --- !u!212 &1282640958
 SpriteRenderer:
   m_ObjectHideFlags: 0
